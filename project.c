@@ -29,13 +29,13 @@ int badcode(const int *arr, int data_num, float *mid)
 
     *mid = (smallest + biggest) / 2;
 
-    if (biggest / smallest < 1.8)
+    if (biggest / smallest < 1.8095)
         return 1;
-    else if (biggest / smallest < 2.2)
+    else if (biggest / smallest < 2.2106)
     {
         for (int i = 0; i < data_num; i++)
         {
-            if (arr[i] > smallest * 1.1 && arr[i] < biggest * 0.9025)
+            if (arr[i] > smallest * 1.1053 && arr[i] < biggest * 0.9047)
                 return 1;
         }
         return 0;
@@ -182,18 +182,18 @@ int main(void)
 {
     int data_num, n, count = 1, state = 0; // state: 0=normal, 1=bad code, 2=bad C, 3=bad K
     float mid;
-    char filename[100] = "testfile.txt";
+    char filename[100] = "test.txt";
     FILE *input;
     input = fopen(filename, "r");
 
-    fscanf(input, "%d", &data_num);
+    fscanf(input, "%d", &data_num); 
 
     while (data_num != 0)
     {
         state = 0;
         int data[150]; // data[data_num]
         n = (data_num + 1) / 6 - 4;
-        char result[21]; // result[n]
+        char result[21]={'\0'}; // result[n]
 
         for (int i = 0; i < data_num; i++)
         {
@@ -201,16 +201,16 @@ int main(void)
         } // read data
 
         state = badcode(data, data_num, &mid);
-
+        
         if (!state)
         {
             translate(data, data_num, mid); // turn in to 1&0
 
-            /*
-            for(int i=0;i<data_num;i++){
-                printf("%d ",data[i]);
-            }
-            */
+            
+            // for(int i=0;i<data_num;i++){
+            //     printf("%d ",data[i]);
+            // }
+            
 
             if (data[0] == 0 && data[1] == 1 && data[2] == 1 && data[3] == 0 && data[4] == 0 && data[data_num - 1] == 0 && data[data_num - 2] == 0 && data[data_num - 3] == 1 && data[data_num - 4] == 1 && data[data_num - 5] == 0)
             {
